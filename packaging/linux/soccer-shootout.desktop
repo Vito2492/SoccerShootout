@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Soccer Shootout 2026
+Comment=Capcom's Soccer Shootout (SNES) with 2026 & 1994 Legends rosters and match mods
+Exec=soccer-shootout %f
+Icon=soccer-shootout
+Categories=Game;SportsGame;
+Terminal=false

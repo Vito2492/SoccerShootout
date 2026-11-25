@@ -1,0 +1,37 @@
+SOCCER SHOOTOUT 2026 - Capcom's Soccer Shootout (SNES, 1994)
+Frontend nativo con Plantillas 2026 / Leyendas 1994, Modificadores y 2P
+=======================================================================
+
+Cómo abrirlo (Windows)
+  1. Abre SoccerShootout.exe (junto a SDL2.dll y snes9x_libretro.dll).
+  2. La primera vez, si la ROM no está en la carpeta, se abrirá una ventana
+     para elegir tu ROM dumpeada legalmente de:
+       Capcom's Soccer Shootout (USA).sfc  (1.5 MB, CRC32: EE314AE5)
+     También puedes dejarla junto a SoccerShootout.exe o arrastrarla sobre el .exe.
+     La ruta queda guardada en soccer.cfg para futuros inicios.
+
+3 Packs de Plantillas intercambiables en memoria (sin modificar tu ROM)
+  - ACTUAL 2026:   Las 12 selecciones actualizadas con plantillas 2026
+                   (Messi, Lautaro, Julian, Mbappe, Vinicius, Raphinha, Yamal,
+                   Pedri, Bellingham, Kane, Musiala, Pulisic, Gimenez, Van Dijk...).
+  - LEYENDAS 1994: Los nombres reales históricos del Mundial USA '94
+                   (Romario, Bebeto, Taffarel, Maradona, Batistuta, Baggio,
+                   Maldini, Klinsmann, Cantona, Bergkamp, Hierro, Campos, Milla...).
+  - ORIGINAL 1994: Los nombres originales de Capcom tal cual en la ROM.
+
+Modos directos desde el Menú de Inicio
+  - EXHIBICION, TEMPORADA (Main Game), ALL-STARS, PENALES (PK),
+    INDOOR 8V8, ENTRENAMIENTO y visor VER PLANTILLAS.
+
+Modificadores en vivo (Pausa > MODIFICADORES)
+  - RELOJ CONGELADO, GOL DE ORO (muerte súbita), VELOCIDAD TURBO,
+    SIN SLOWDOWN, +1 GOL P1, +1 GOL P2, MARCADOR 0-0, +1 MINUTO.
+
+Controles
+  P1 (Teclado):  Flechas mover · Z tiro (B) · X globito (A) · A pase (Y) · S turbo (X)
+                 Q/W = L/R · Enter = Start · Shift der. = Select · Tab = avance rápido
+  P2 (Teclado):  IJKL mover · N tiro · M globito · H pase · U turbo · O Start
+  Mandos (1P/2P): Mando 1 = P1, Mando 2 = P2.
+  Pausa / Menú:  F1 o Esc · Mando: Back, Guide, Select+Start, LB+RB+Start · Táctil: MENU
+  Estados:       F5 guardar / F7 cargar · Mando: LT/RT guarda, L3/R3 carga
+  Pantalla:      F11 o Alt+Enter (pantalla completa)
