@@ -1,6 +1,6 @@
 # Shootout26 — Capcom's Soccer Shootout (SNES) Enhanced Frontend
 
-Frontend nativo en **C + SDL2 + `snes9x_libretro`** para **Capcom's Soccer Shootout (USA)** (SNES, 1994) en **Windows (`.exe`)**, **Linux (`.AppImage`)** y **Android (`.apk`)**, con **3 packs de plantillas intercambiables en memoria (Actuales 2026, Leyendas Reales 1994 y Original 1994)**, accesos directos a los 6 modos de juego, modificadores de partido en vivo, soporte **2 Jugadores locales**, controles táctiles inteligentes en Android y menús totalmente accesibles con mando y pantalla táctil.
+Frontend nativo en **C + SDL2 + `snes9x_libretro`** para **Capcom's Soccer Shootout (USA)** (SNES, 1994) en **Windows (`.exe`)**, **Linux** y **Android (`.apk`)**, con **3 packs de plantillas intercambiables en memoria (Actuales 2026, Leyendas Reales 1994 y Original 1994)**, accesos directos a los 6 modos de juego, modificadores de partido en vivo, soporte **2 Jugadores locales**, controles táctiles inteligentes en Android y menús totalmente accesibles con mando y pantalla táctil.
 
 > **Aviso legal:** Este repositorio **no incluye ninguna ROM ni assets con copyright**. Al abrir el programa por primera vez, enlazas tu propia ROM dumpeada legalmente de *Capcom's Soccer Shootout (USA)* (1.5 MB, CRC32 `0xEE314AE5`). El archivo de la ROM en disco nunca se modifica: los packs de plantillas se aplican dinámicamente en memoria RAM antes de cargar el núcleo.
 
@@ -33,19 +33,24 @@ Frontend nativo en **C + SDL2 + `snes9x_libretro`** para **Capcom's Soccer Shoot
 
 ## Cómo usar
 
-### Windows (`.exe`)
-1. Descarga `SoccerShootout-Windows-x64.zip` desde **Releases** (o compila con `build_win.bat`).
-2. Ejecuta `SoccerShootout.exe` y selecciona tu ROM `Capcom's Soccer Shootout (USA).sfc` (o `.smc`) en el diálogo que aparece la primera vez. Queda guardada en `soccer.cfg`.
+### Windows
+1. Descarga [SoccerShootout-Windows.zip](https://github.com/Vito2492/SoccerShootout/releases/latest/download/SoccerShootout-Windows.zip) y descomprímelo.
+2. Abre `SoccerShootout.exe`. La primera vez elige tu ROM `Capcom's Soccer Shootout (USA).sfc` (`.sfc` o `.smc`), o déjala junto al `.exe`.
 
-### Linux (`.AppImage`)
-```bash
-chmod +x SoccerShootout-x86_64.AppImage
-./SoccerShootout-x86_64.AppImage
-```
+### Linux
+1. Descarga [SoccerShootout-Linux.tar.gz](https://github.com/Vito2492/SoccerShootout/releases/latest/download/SoccerShootout-Linux.tar.gz).
+2. Descomprime y ejecuta (trae su propia copia de SDL2 en `lib/`):
+   ```bash
+   tar xzf SoccerShootout-Linux.tar.gz && cd SoccerShootout-Linux
+   ./soccer-shootout "ruta/a/Capcom's Soccer Shootout (USA).sfc"
+   ```
 
-### Android (`.apk`)
-1. Instala `SoccerShootout-Android.apk`.
-2. Al abrir por primera vez, elige tu ROM `.sfc`/`.smc` en el selector nativo de Android (SAF); se valida el CRC32 y arranca directo al menú.
+### Android
+1. Descarga e instala [SoccerShootout-Android.apk](https://github.com/Vito2492/SoccerShootout/releases/latest/download/SoccerShootout-Android.apk) desde el celular (hay que permitir instalar apps de origen desconocido).
+2. La primera vez te pide elegir tu ROM (`.sfc`, `.smc` o `.zip`); se valida y queda guardada dentro de la app.
+3. Las versiones nuevas se instalan encima y conservan las partidas. Juega con la pantalla táctil o con un mando Bluetooth/USB.
+
+> Ningún paquete incluye el juego: necesitas tu propia copia (versión USA).
 
 ---
 
@@ -63,9 +68,17 @@ chmod +x SoccerShootout-x86_64.AppImage
 
 ---
 
-## Compilación y CI (Windows + Linux + Android)
+## Compilación desde código fuente
 
-- **Windows local:** `build_win.bat` (MSVC 2022)
-- **Linux / AppImage:** `make` y `make appimage`
-- **GitHub Actions:** [`.github/workflows/build.yml`](.github/workflows/build.yml) genera automáticamente los binarios de **Windows**, **Linux AppImage** y **Android APK** en cada push y crea un Release completo al publicar un tag `v*`.
-- Para firmar el APK de Android en modo release, configura los 4 secretos en GitHub (`KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`).
+- **Linux:** `sudo apt install libsdl2-dev && make` (pon `snes9x_libretro.so` junto al programa).
+- **Windows (MinGW, igual que el CI):**
+  ```bash
+  x86_64-w64-mingw32-gcc -O2 -Isrc -I$SDL/include/SDL2 -I$SDL/include src/soccer.c -o SoccerShootout.exe \
+    -L$SDL/lib -lmingw32 -lSDL2main -lSDL2 -lcomdlg32 -luser32 -lshell32 -lm -mwindows
+  ```
+  (o `build_win.bat` con MSVC 2022). Junto al `.exe` van `SDL2.dll` y `snes9x_libretro.dll`.
+- **Android:** `tools/android-prepare.sh SDL2-2.30.9 snes9x/libretro/libs` y luego `cd android && gradle assembleRelease` (el workflow muestra los pasos completos).
+- **GitHub Actions:** [`.github/workflows/build.yml`](.github/workflows/build.yml) compila Windows, Linux y Android (arm64-v8a, armeabi-v7a, x86_64) en cada push a `main`, con SDL2 2.30.9 y snes9x compilado desde su código fuente, y publica o actualiza el release `v` + [`VERSION`](VERSION).
+- **Firma del APK:** con los secretos `ANDROID_KEYSTORE_B64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS` y `ANDROID_KEY_PASSWORD` el APK sale firmado siempre con la misma clave, así cada versión se instala encima de la anterior. Sin ellos se compila igual, pero el APK no se publica.
+
+
